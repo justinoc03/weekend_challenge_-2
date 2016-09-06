@@ -1,10 +1,9 @@
 console.log('JS is sourced Dawg');
 
-
-/////////////Global Variables////////////////
-var currentIndex = 0;
-var theData;
+/////////////Global Variables///////////////////////////////////////////////////////////////////////////////////
+var students = [];
 var jsonUrl = 'http://devjana.net/pi/pi_students.json';
+var currentPerson = 0;
 
 
 //JQuery is properly sourced
@@ -12,75 +11,92 @@ $(document).ready(function(){
   console.log('JQuery is sourced');
 
 
-  /////////////AJAX Server Connection////////////////
+///////////Display Student INFO on DOM////////////////////////////////////////////////////////////////////////////
+  var displayCurrentStudent = function(){
+    // console.log('In displayCurrentStudents', students[currentPerson]);
+
+    var student = students[currentPerson];
+
+    var display = student.first_name + ' ' + student.last_name + '<br>' + student.info;
+
+    console.log(currentPerson + '/' +students.length );
+    var counter = currentPerson + 1 + '/' + students.length;
+
+    $('#counter').html(counter);
+    $('#displayClickedStudent').html(display);
+  };
+
+
+/////////////Next/Prev Buttons///////////////////////////////////////////////////////////////////////////////////
+    $('#nextButton').on('click',function(){
+      currentPerson ++;
+      if (currentPerson >= students.length) {
+        currentPerson = 0;
+      }
+      console.log(currentPerson + ' Student Name: ' + students[currentPerson].first_name + ' ' + students[currentPerson].last_name);
+
+      displayCurrentStudent();
+    });
+
+    $('#prevButton').on('click',function(){
+      console.log('Clicked prevStudent!');
+      currentPerson --;
+      if (currentPerson < 0) {
+        currentPerson = students.length - 1;
+      }
+      console.log(currentPerson + ' Student Name: ' + students[currentPerson].first_name + ' ' + students[currentPerson].last_name);
+
+      displayCurrentStudent();
+    });
+
+
+/////////////Display all Students in buttons & save data (the index #, specifically) in the buttons////////////////
+    //need a for loop to loop through students and append to the DOM
+    var allStudentButtons = function() {
+      for (var i = 0; i < students.length; i++) {
+        // var newHeader = document.createElement('button');
+
+        var button = $("<button/>");
+
+        button.data('index', i );
+        button.html(students[i].first_name); //add in innerHMTL
+        button.on('click', studentButtonClick); //adding a listener, if this happens: do this... remember, studentButtonClick is also a function found below!! Functions should ALWAYS stay outside the loop!!!
+
+        $('#studentsOutput').append(button);
+        console.log(button.data('index'));
+      }
+    };
+
+
+////////Function for allStudentButtons loop/////////////////////////////////////////////////////////////////////
+  var studentButtonClick = function() {
+    var index = $(this).data('index'); //created a key (named index) to recall that value from allStudentButtons function
+    console.log('Student index:', $(this).data('index'));
+    console.log(students[index].first_name);
+    currentPerson = index;
+
+    displayCurrentStudent();
+  };
+
+
+/////////////AJAX Server Connection///////////////////////////////////////////////////////////////////////////
   //get data from the server using AJAX
   $.ajax({
     url:jsonUrl,
     dataType: 'JSON',
     success: function(data){
       // console.log('in AJAX success: ', data.students);
-      theData = data;
-      displayStudents();
-    } //END AJAX Success
-  }); //END AJAX
 
+      //loop through each student and push them into the students array
+      for (var i = 0; i < data.students.length; i++) {
+        students.push(data.students[i]);
+      }
+      //log shows that the global students array is now properly filling
+      // console.log('Global students array: ', students);
 
-  /////////////Previous and Next Buttons////////////////
-  $('#nextButton').on('click',function(){
-    currentIndex++;
-    if(currentIndex >= theData.students.length){
-      currentIndex = 0;
+      allStudentButtons();
+
     }
-    displayStudents();
-  }); //end nextButton
 
-  $('#previousButton').on('click',function(){
-    currentIndex--;
-    if(currentIndex < 0){
-      currentIndex = theData.students.length -1;
-    }
-    displayStudents();
-  }); //end previousButton
-
-  /////////////Display Students on DOM////////////////
-  var displayStudents = function(){
-    $('#studentsOutput').empty();
-
-
-    var nameOut = theData.students[ currentIndex ].first_name + " " + theData.students[ currentIndex ].last_name;
-    // format record number
-
-    var adjustedIndex = currentIndex +1;
-    var counterOut = adjustedIndex + "/" + theData.students.length;
-    /// - create element append - ///
-    // format output
-    var newHeader = document.createElement('h2');
-    newHeader.textContent=nameOut;
-    var newParagraph = document.createElement('p');
-    newParagraph.textContent= counterOut;
-    // display output
-    $("#studentsOutput").append( newHeader );
-    $("#studentsOutput").append( newParagraph );
-  }; // end display student
-
+  });
 });
-
-
-
-
-
-// /////////////NextStudent////////////////
-// var nextStudent = function (){
-//   console.log('in clickButton');
-//   $('#nextButton').on('click',function(){
-//     console.log('Clicked nextStudent!');
-//     i++;
-//
-//     if(i >= students.length) {
-//       i = 0;
-//     }
-//       // $('#displayClickedStudent').append(students[i].first_name);
-//
-//
-//   });
-// };
