@@ -1,4 +1,4 @@
-console.log('JS is sourced Dawg');
+// console.log('JS is sourced Dawg');
 
 /////////////Global Variables///////////////////////////////////////////////////////////////////////////////////
 var students = [];
@@ -8,7 +8,7 @@ var currentPerson = 0;
 
 //JQuery is properly sourced
 $(document).ready(function(){
-  console.log('JQuery is sourced');
+  // console.log('JQuery is sourced');
 
 
 ///////////Display Student INFO on DOM////////////////////////////////////////////////////////////////////////////
@@ -19,11 +19,11 @@ $(document).ready(function(){
 
     var display = student.first_name + ' ' + student.last_name + '<br>' + student.info;
 
-    console.log(currentPerson + '/' +students.length );
+    // console.log(currentPerson + '/' +students.length);
     var counter = currentPerson + 1 + '/' + students.length;
 
-    $('#counter').html(counter);
-    $('#displayClickedStudent').html(display);
+    $('#counter').toggle().fadeIn().html(counter);
+    $('#displayClickedStudent').toggle().fadeIn().html(display);
   };
 
 
@@ -33,7 +33,7 @@ $(document).ready(function(){
       if (currentPerson >= students.length) {
         currentPerson = 0;
       }
-      console.log(currentPerson + ' Student Name: ' + students[currentPerson].first_name + ' ' + students[currentPerson].last_name);
+      // console.log(currentPerson + ' Student Name: ' + students[currentPerson].first_name + ' ' + students[currentPerson].last_name);
 
       displayCurrentStudent();
     });
@@ -44,7 +44,7 @@ $(document).ready(function(){
       if (currentPerson < 0) {
         currentPerson = students.length - 1;
       }
-      console.log(currentPerson + ' Student Name: ' + students[currentPerson].first_name + ' ' + students[currentPerson].last_name);
+      // console.log(currentPerson + ' Student Name: ' + students[currentPerson].first_name + ' ' + students[currentPerson].last_name);
 
       displayCurrentStudent();
     });
@@ -63,7 +63,7 @@ $(document).ready(function(){
         button.on('click', studentButtonClick); //adding a listener, if this happens: do this... remember, studentButtonClick is also a function found below!! Functions should ALWAYS stay outside the loop!!!
 
         $('#studentsOutput').append(button);
-        console.log(button.data('index'));
+        // console.log(button.data('index'));
       }
     };
 
@@ -71,8 +71,8 @@ $(document).ready(function(){
 ////////Function for allStudentButtons loop/////////////////////////////////////////////////////////////////////
   var studentButtonClick = function() {
     var index = $(this).data('index'); //created a key (named index) to recall that value from allStudentButtons function
-    console.log('Student index:', $(this).data('index'));
-    console.log(students[index].first_name);
+    // console.log('Student index:', $(this).data('index'));
+    // console.log(students[index].first_name);
     currentPerson = index;
 
     displayCurrentStudent();

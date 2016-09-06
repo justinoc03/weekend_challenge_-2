@@ -1,0 +1,42 @@
+html {
+  font-family: sans-serif;
+}
+
+h2 {
+  margin: 25px auto 20px auto;
+}
+
+button {
+  background-color: #93eeFF;
+  border-radius: 5px;
+  margin: 1px;
+}
+
+button:hover {
+  background-color: #38AEFF;
+}
+
+#counter {
+  margin: 10px auto 5px auto;
+}
+
+#displayClickedStudent {
+  margin: 5px auto 10px auto;
+}
+
+
+
+#buttons {
+  width: 1500px;
+}
+
+#nextButton, #prevButton {
+  background-color: white;
+  border-radius: 5px;
+  margin: 3px;
+}
+
+#nextButton:hover, #prevButton:hover {
+  background-color: lightgrey;
+
+}
