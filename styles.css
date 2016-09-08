@@ -10,30 +10,46 @@ button {
   background-color: #93eeFF;
   border-radius: 5px;
   margin: 1px;
+  display: block;
+  width: 70px;
 }
 
 button:hover {
   background-color: #38AEFF;
 }
 
-#counter {
-  margin: 10px auto 5px auto;
-}
-
-#displayClickedStudent {
-  margin: 5px auto 10px auto;
-}
-
 
 
 #buttons {
-  width: 1500px;
+  width: 25%;
+  float: left;
+}
+
+#displayInfo {
+  float: left;
+}
+
+#counter {
+  margin: auto;
+}
+
+#displayClickedStudent {
+  margin: auto;
+  font-size: 14px;
+  font-stretch: condensed;
+  font-style: italic;
+}
+
+#studentsOutput {
+  text-align: center;
+  margin-left: 6px;
 }
 
 #nextButton, #prevButton {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 2px;
   margin: 3px;
+  width: 80px;
 }
 
 #nextButton:hover, #prevButton:hover {
